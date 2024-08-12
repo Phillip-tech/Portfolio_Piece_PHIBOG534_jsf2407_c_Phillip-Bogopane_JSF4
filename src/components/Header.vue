@@ -6,7 +6,7 @@
           <img src="@/assets/online-shop.png" class="h-8" alt="SwiftCart Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">SwiftCart</span>
         </a>
-        <button @click="navbarOpen = !navbarOpen" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden">
+        <button @click="toggleNavbar" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden">
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
           </svg>
@@ -20,7 +20,6 @@
             <li><router-link to="/Wishlist">Wishlist</router-link></li>
             <li><router-link to="/CartView">Cart</router-link></li>
             <li><router-link to="/help">Help</router-link></li>
-
           </ul>
         </div>
       </div>
@@ -28,3 +27,28 @@
   </header>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      navbarOpen: false,
+      isAuthenticated: false, // Update this based on user authentication status
+      cartItems: [] // Array to store items in the cart
+    };
+  },
+  methods: {
+    toggleNavbar() {
+      this.navbarOpen = !this.navbarOpen;
+    },
+    logout() {
+      // Implement logout functionality here
+      this.isAuthenticated = false; // Update authentication status on logout
+    },
+    addToCart(item) {
+      // Add the selected item to the cartItems array
+      this.cartItems.push(item);
+      // You can also perform additional logic here, such as updating the cart total or displaying a success message
+    }
+  }
+};
+</script>

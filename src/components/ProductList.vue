@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- Search and Filter Section -->
-    <div class="flex flex-col md:flex-row justify-between items-center mt-4 space-y-4 md:space-y-0">
+    <div class="flex justify-between items-center mt-4">
       <!-- Search Form -->
-      <form @submit.prevent="handleSearch" class="relative w-full md:w-auto md:flex-1 md:mr-4">
+      <form @submit.prevent="handleSearch" class="relative w-full max-w-sm flex items-center">
         <div class="flex">
           <input
             type="search"
@@ -26,7 +26,7 @@
       <!-- Filter and Sort Options -->
       <div class="flex space-x-3">
         <!-- Filter Dropdown -->
-        <select v-model="filterItem" @change="handleFilterChange" class="border-gray-300 rounded-lg">
+        <select v-model="filterItem" @change="handleFilterChange" class="border-gray-300 text-black rounded-lg p-2" style="background-color: lightgray;">
           <option value="All categories">All categories</option>
           <option value="electronics">Electronics</option>
           <option value="men's clothing">Men's Clothing</option>
@@ -35,11 +35,11 @@
         </select>
 
 
-        <select v-model="sortOrder" @change="handleSortOrderChange" class="border-gray-300 rounded-lg p-2">
-          <option value="default">Default</option>
-          <option value="low-to-high">Price: Low to High</option>
-          <option value="high-to-low">Price: High to Low</option>
-        </select>
+        <select v-model="sortOrder" @change="handleSortOrderChange" class="border-gray-300 text-black rounded-lg p-2" style="background-color: lightgray;">
+  <option value="default">Default</option>
+  <option value="low-to-high">Price: Low to High</option>
+  <option value="high-to-low">Price: High to Low</option>
+</select>
 
         <button @click="resetFilters" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
           Reset

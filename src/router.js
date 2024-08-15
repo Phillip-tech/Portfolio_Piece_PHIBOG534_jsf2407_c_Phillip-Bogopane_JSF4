@@ -8,12 +8,11 @@ import Login from './views/Login.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/product/:id', name: 'ProductView', component: ProductView },
-  { path: '/cart', component: CartView },
-  { path: '/favorites', component: FavoritesView },
-  { path: '/comparison-list', name: 'ComparisonList', component: ComparisonListView },
-  { path: '/login', component: Login },
-  // Add other routes here as necessary
+  { path: '/product/:id', name: 'ProductView', component: ProductView, props: true },
+  { path: '/cart', name: 'CartView', component: CartView },
+  { path: '/favorites', name: 'FavoritesView', component: FavoritesView },
+  { path: '/comparisonList', name: 'ComparisonListView', component: ComparisonListView },
+  { path: '/login', name: 'Login', component: Login },
 ];
 
 const router = createRouter({

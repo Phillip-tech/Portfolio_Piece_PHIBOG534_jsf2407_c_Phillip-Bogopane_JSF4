@@ -6,7 +6,7 @@ export default createStore({
     products: [],
     categories: ['All categories'],
     favorites: [],
-    cart: {},
+    cart: [], // Changed to an array for simplicity
     searchTerm: '',
     filterItem: 'All categories',
     sortOrder: 'default',
@@ -14,7 +14,7 @@ export default createStore({
     selectedProduct: null,
     comparisonList: [],
     currentUser: null,
-    isLightMode: true, // Add new state property for theme preference
+    isLightMode: true,
   },
   mutations: {
     setProducts(state, products) {
@@ -35,6 +35,9 @@ export default createStore({
     setSelectedProduct(state, product) {
       state.selectedProduct = product;
     },
+    setCart(state, cartItems) {
+      state.cart = cartItems;
+    },
     toggleFavorite(state, productId) {
       const index = state.favorites.indexOf(productId);
       if (index !== -1) {
@@ -43,31 +46,25 @@ export default createStore({
         state.favorites.push(productId);
       }
     },
-    addToCart(state, { userId, product, quantity }) {
-      if (!state.cart[userId]) {
-        state.cart[userId] = [];
-      }
-      const existingItem = state.cart[userId].find(item => item.id === product.id);
+    addToCart(state, { product, quantity }) {
+      let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cartItems.find(item => item.id === product.id);
+      
       if (existingItem) {
         existingItem.quantity += quantity;
       } else {
-        state.cart[userId].push({ ...product, quantity });
+        cartItems.push({ ...product, quantity });
       }
+      
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      state.cart = cartItems;
+    },
+    removeFromCart(state, { productId }) {
+      state.cart = state.cart.filter(item => item.id !== productId);
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
-    updateCartItem(state, { userId, productId, quantity }) {
-      const item = state.cart[userId].find(item => item.id === productId);
-      if (item) {
-        item.quantity = quantity;
-        localStorage.setItem('cart', JSON.stringify(state.cart));
-      }
-    },
-    removeFromCart(state, { userId, productId }) {
-      state.cart[userId] = state.cart[userId].filter(item => item.id !== productId);
-      localStorage.setItem('cart', JSON.stringify(state.cart));
-    },
-    clearCart(state, userId) {
-      state.cart[userId] = [];
+    clearCart(state) {
+      state.cart = [];
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
     setCurrentUser(state, user) {
@@ -84,7 +81,7 @@ export default createStore({
     clearComparisonList(state) {
       state.comparisonList = [];
     },
-    setThemePreference(state, isLightMode) { // New mutation for theme preference
+    setThemePreference(state, isLightMode) {
       state.isLightMode = isLightMode;
     },
   },
@@ -97,8 +94,8 @@ export default createStore({
       commit('setLoading', false);
     },
     initializeCart({ commit }) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || {};
-      commit('setCart', cart);
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      commit('setCart', cartItems);
     },
     login({ commit }, token) {
       const user = jwtDecode(token);
@@ -109,7 +106,7 @@ export default createStore({
       commit('setCurrentUser', null);
       localStorage.removeItem('token');
     },
-    updateThemePreference({ commit }, isLightMode) { // New action for theme preference
+    updateThemePreference({ commit }, isLightMode) {
       commit('setThemePreference', isLightMode);
       localStorage.setItem('themePreference', isLightMode);
     },
@@ -140,12 +137,12 @@ export default createStore({
 
       return filteredProducts;
     },
-    cartItemCount: (state) => (userId) => {
-      return state.cart[userId] ? state.cart[userId].reduce((total, item) => total + item.quantity, 0) : 0;
+    cartItemCount: (state) => {
+      return state.cart.reduce((total, item) => total + item.quantity, 0);
     },
-    cartTotal: (state) => (userId) => {
-      return state.cart[userId] ? state.cart[userId].reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2) : '0.00';
+    cartTotal: (state) => {
+      return state.cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
     },
-    themePreference: state => state.isLightMode, // New getter for theme preference
+    themePreference: state => state.isLightMode,
   },
 });

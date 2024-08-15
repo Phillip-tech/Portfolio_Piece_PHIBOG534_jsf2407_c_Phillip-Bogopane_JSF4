@@ -1,13 +1,7 @@
 <template>
-  <template>
-  <div class="comparison-container" v-if="currentUser">
+  <div class="comparison-container">
     <h2 class="text-2xl font-bold mb-4">Comparison List</h2>
-    <button @click="$router.push('/comparisonListView')">Go to Comparison List View</button>
-    <!-- Existing table and content -->
-  </div>
-</template>
-  <div class="comparison-container" v-if="currentUser">
-    <h2 class="text-2xl font-bold mb-4">Comparison List</h2>
+    
     <table v-if="comparisonList.length > 0" class="w-full border-collapse border">
       <thead>
         <tr>
@@ -41,9 +35,15 @@
         </tr>
       </tbody>
     </table>
+
     <button @click="clearComparisonList" v-if="comparisonList.length > 0" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mt-4">
       Clear Comparison List
     </button>
+
+    <button @click="$router.push('/comparisonListView')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4">
+      Go to Comparison List View
+    </button>
+    
     <p v-if="comparisonList.length === 0">No items in the comparison list.</p>
   </div>
 </template>

@@ -22,16 +22,16 @@
     <div class="text-gray-600 mb-2">Rating: {{ product.rating.rate }}/5</div>
     <div class="font-bold text-xl mb-4">${{ product.price }}</div>
     <button
-    @click="$emit('addToCart', product)"
-    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
+      @click="$emit('addToCart', product)"
+      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
     >
       Add to Cart
     </button>
     <button
-      @click="addToComparisonList(product)"
+      @click="addToComparisonList"
       class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full mt-2"
     >
-      Add to ComparisonList
+      Add to Comparison List
     </button>
   </div>
 </template>
@@ -40,22 +40,25 @@
 import { defineProps, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
 
 const props = defineProps({
-  product: Object,
-  isFavorite: Boolean,
+  product: {
+    type: Object,
+    required: true
+  },
+  isFavorite: {
+    type: Boolean,
+    default: false
+  }
 });
 
-const emits = defineEmits(['toggleFavorite', 'addToCart']);
+const emit = defineEmits(['toggleFavorite', 'addToCart']);
 
 const router = useRouter();
 const store = useStore();
 
-const currentUser = computed(() => store.state.currentUser);
-
-const addToComparisonList = (product) => {
-  store.commit('addToComparisonList', product);
+const addToComparisonList = () => {
+  store.commit('addToComparisonList', props.product);
   router.push({ name: 'ComparisonList' });
 };
 </script>
@@ -71,6 +74,6 @@ const addToComparisonList = (product) => {
   transition: transform 0.3s;
 }
 .zoom-effect:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 </style>

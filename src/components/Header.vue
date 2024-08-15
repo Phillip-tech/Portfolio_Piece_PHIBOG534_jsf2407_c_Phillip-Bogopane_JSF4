@@ -2,6 +2,7 @@
   <header class="sticky z-50 top-0">
     <nav class="bg-gray-500 border-gray-200">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        
         <a href="#" class="flex items-center space-x-3">
           <img src="@/assets/online-shop.png" class="h-8" alt="SwiftCart Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">SwiftCart</span>
@@ -15,15 +16,22 @@
           <ul class="flex flex-col top-10 font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:space-x-8 md:flex-row md:mt-0">
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/ComparisonList">ComparisonList</router-link></li>
-            <li v-if="!isAuthenticated"><router-link to="/login">Login</router-link></li>
-            <li v-if="isAuthenticated"><button @click="logout">Logout</button></li>
+            <li><router-link to="/login">Login</router-link></li>
             <li><router-link to="/Wishlist">Wishlist</router-link></li>
             <li><router-link to="/CartView">Cart</router-link></li>
             <li><router-link to="/help">Help</router-link></li>
           </ul>
         </div>
-      </div>
+        <div class="theme-toggle" @click="toggleTheme">
+          <span v-if="isLightMode">☀️</span>
+          <span v-else>🌙</span>
+        </div>
+      </div>  
     </nav>
+    <!-- <div class="cart-info">
+      Cart Items: {{ cartItemCount }}
+      Total: ${{ cartTotal }}
+    </div> -->
   </header>
 </template>
 
@@ -32,23 +40,31 @@ export default {
   data() {
     return {
       navbarOpen: false,
-      isAuthenticated: false, // Update this based on user authentication status
-      cartItems: [] // Array to store items in the cart
+      cartItems: [], // Array to store items in the cart
+      isLightMode: true // Boolean to track the current theme mode
     };
   },
   methods: {
     toggleNavbar() {
       this.navbarOpen = !this.navbarOpen;
     },
-    logout() {
-      // Implement logout functionality here
-      this.isAuthenticated = false; // Update authentication status on logout
-    },
     addToCart(item) {
       // Add the selected item to the cartItems array
       this.cartItems.push(item);
       // You can also perform additional logic here, such as updating the cart total or displaying a success message
+    },
+    toggleTheme() {
+      this.isLightMode = !this.isLightMode; // Toggle between light and dark mode
+      // You can add logic here to update the theme of your application based on isLightMode value
     }
-  }
+  },
+  computed: {
+    cartItemCount() {
+      return this.currentUser ? this.$store.getters.cartItemCount(this.currentUser.sub) : 0;
+    },
+    cartTotal() {
+      return this.currentUser ? this.$store.getters.cartTotal(this.currentUser.sub) : '0.00';
+    },
+  },
 };
 </script>

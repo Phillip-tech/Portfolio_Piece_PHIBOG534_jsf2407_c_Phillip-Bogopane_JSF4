@@ -9,9 +9,9 @@ import Login from './views/Login.vue';
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/product/:id', name: 'ProductView', component: ProductView },
-  { path: '/cart', component: CartView, meta: { requiresAuth: true } },
-  { path: '/favorites', component: FavoritesView, meta: { requiresAuth: true } },
-  { path: '/comparison', component: ComparisonListView, meta: { requiresAuth: true } },
+  { path: '/cart', component: CartView },
+  { path: '/favorites', component: FavoritesView },
+  { path: '/comparison-list', name: 'ComparisonList', component: ComparisonListView },
   { path: '/login', component: Login },
   // Add other routes here as necessary
 ];

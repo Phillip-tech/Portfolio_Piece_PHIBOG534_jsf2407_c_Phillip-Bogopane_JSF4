@@ -6,3 +6,5 @@ import './style.css'; // Tailwind CSS import
 import '@fortawesome/fontawesome-free/css/all.css';
 
 createApp(App).use(router).use(store).mount('#app');
+
+store.dispatch('initializeCart');

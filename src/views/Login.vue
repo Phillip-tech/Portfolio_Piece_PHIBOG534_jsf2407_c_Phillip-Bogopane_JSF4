@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="max-w-md mx-auto p-4">
     <h2>Login</h2>
@@ -19,6 +17,7 @@
     </form>
     <p v-if="loading">Logging in...</p>
     <p v-if="error">{{ error }}</p>
+    <button type="button" @click="logout" v-if="isHomeRoute">Logout</button>
   </div>
 </template>
 
@@ -32,6 +31,11 @@ export default {
       loading: false,
       error: null,
     };
+  },
+  computed: {
+    isHomeRoute() {
+      return this.$router.currentRoute.name === 'Home';
+    },
   },
   methods: {
     togglePasswordVisibility() {
@@ -67,8 +71,10 @@ export default {
         this.loading = false;
       }
     },
+    logout() {
+      localStorage.removeItem('token');
+      this.$router.push({ name: 'Login' });
+    },
   },
 };
 </script>
-
-

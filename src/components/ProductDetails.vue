@@ -53,68 +53,46 @@ export default {
     const route = useRoute();
     const router = useRouter();
 
-    // Computed property to get the selected product from the store
     const product = computed(() => store.state.selectedProduct);
-    // Computed property to check if the product is a favorite
     const isFavorite = computed(() => store.state.favorites.includes(product.value.id));
 
-    // Reference to store the star rating
     const stars = ref(0);
-    // Reference to store the number of ratings
     const numRatings = ref(0);
-    // Reference to store the number of reviews
     const numReviews = ref(0);
 
-    // Computed property to get the number of full stars
     const fullStars = computed(() => Math.floor(stars.value));
-    // Computed property to check if there is a half star
     const hasHalfStar = computed(() => stars.value % 1 >= 0.5);
-    // Computed property to get the number of empty stars
     const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 : 0));
 
-    // Reference to indicate loading state
     const loading = ref(false);
 
-    /**
-     * Toggles the favorite status of a product.
-     * @param {number} productId - The ID of the product to toggle.
-     */
     const toggleFavorite = (productId) => {
       store.commit('toggleFavorite', productId);
     };
 
-    /**
-     * Adds a product to the cart.
-     * @param {Object} product - The product to add to the cart.
-     */
     const addToCart = (product) => {
       store.commit('addToCart', product);
     };
 
-    /**
-     * Navigates back to the previous page.
-     */
     const goBack = () => {
       router.go(-1);
     };
 
     onMounted(async () => {
       const productId = route.params.id;
-      // Find the selected product from the store's products
       const selectedProduct = store.state.products.find((p) => p.id === parseInt(productId));
       store.commit('setSelectedProduct', selectedProduct);
 
-      // Fetch additional data from API
       try {
-        loading.value = true; // Set loading to true before API call
+        loading.value = true;
         const response = await axios.get(`https://fakestoreapi.com/products/${productId}`);
         stars.value = response.data.rating.rate;
         numRatings.value = response.data.rating.count;
-        numReviews.value = response.data.rating.count; // Assuming numReviews is the same as numRatings
+        numReviews.value = response.data.rating.count;
       } catch (error) {
         console.error('Error fetching additional data:', error);
       } finally {
-        loading.value = false; // Set loading to false after API call
+        loading.value = false;
       }
     });
 

@@ -22,8 +22,8 @@
     <div class="text-gray-600 mb-2">Rating: {{ product.rating.rate }}/5</div>
     <div class="font-bold text-xl mb-4">${{ product.price }}</div>
     <button
-      @click="$emit('addToCart', product.id)"
-      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
+    @click="$emit('addToCart', product)"
+    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
     >
       Add to Cart
     </button>

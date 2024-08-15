@@ -149,4 +149,3 @@ export default createStore({
     themePreference: state => state.isLightMode, // New getter for theme preference
   },
 });
-

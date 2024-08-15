@@ -1,7 +1,7 @@
 <template>
   <div class="border rounded-lg p-4 shadow-md hover:shadow-lg zoom-effect">
     <router-link :to="{ name: 'ProductView', params: { id: product.id }}">
-      <img :src="product.image" :alt="product.title" class="h-48 w-full object-contain mb-4" />
+      <img :src="product.image" :alt="product.title" class="h-40 w-full object-contain mb-1" />
     </router-link>
     <div class="flex justify-between items-start mb-2 p-4">
       <div class="text-lg font-semibold">{{ product.title }}</div>
@@ -75,5 +75,10 @@ const addToComparisonList = () => {
 }
 .zoom-effect:hover {
   transform: scale(1.05);
+}
+
+.custom-button {
+  height: 40px; /* Set the desired height */
+  width: 100%; /* Set the desired width */
 }
 </style>

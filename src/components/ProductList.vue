@@ -25,10 +25,15 @@
 
       <!-- Filter and Sort Options -->
       <div class="flex space-x-3">
-        <select v-model="filterItem" @change="handleFilterChange" class="border-gray-300 rounded-lg p-2">
+        <!-- Filter Dropdown -->
+        <select v-model="filterItem" @change="handleFilterChange" class="border-gray-300 rounded-lg">
           <option value="All categories">All categories</option>
-          <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+          <option value="electronics">Electronics</option>
+          <option value="men's clothing">Men's Clothing</option>
+          <option value="jewelery">Jewelery</option>
+          <option value="women's clothing">Women's Clothing</option>
         </select>
+
 
         <select v-model="sortOrder" @change="handleSortOrderChange" class="border-gray-300 rounded-lg p-2">
           <option value="default">Default</option>

@@ -11,7 +11,7 @@
           :isFavorite="true"
         />
       </div>
-      <div v-else class="text-gray-600">
+      <div v-else class=" text-white-600">
         You have no favorite products. Go back to <router-link to="/">home</router-link> and add some favorites!
       </div>
     </div>

@@ -29,7 +29,7 @@
         Checkout
       </button>
     </div>
-    <div v-else class="text-gray-600">
+    <div v-else class=" text-white-600">
       Your cart is empty. Go back to <router-link to="/">home</router-link> and add some products!
     </div>
   </div>

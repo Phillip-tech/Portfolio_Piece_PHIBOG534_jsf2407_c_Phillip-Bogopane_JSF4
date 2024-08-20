@@ -16,11 +16,12 @@
         <div :class="navbarOpen ? 'block' : 'hidden'" class="w-full md:block md:w-auto">
           <ul class="flex flex-col top-10 font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:space-x-8 md:flex-row md:mt-0">
             <li><router-link to="/">Home</router-link></li>
-            <li><router-link to="/comparisonList">Comparison List</router-link></li>
-            <li><router-link to="/login">Login</router-link></li>
-            <li><router-link to="/favorites">Wishlist</router-link></li>
-            <li><router-link to="/cart">Cart</router-link></li>
+            <li v-if="isLoggedIn"><router-link to="/comparisonList">Comparison List ({{ comparisonListCount }})</router-link></li>
+            <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+            <li v-if="isLoggedIn"><router-link to="/favorites">Wishlist ({{ favoritesCount }})</router-link></li>
+            <li v-if="isLoggedIn"><router-link to="/cart">Cart ({{ cartItemCount }})</router-link></li>
             <li><router-link to="/help">Help</router-link></li>
+            <li v-if="isLoggedIn"><button @click="logout">Logout</button></li>
           </ul>
         </div>
         
@@ -37,26 +38,37 @@
 export default {
   data() {
     return {
-      navbarOpen: false,
-      cartItems: [],
-      isLightMode: true
+      navbarOpen: false // Initialize navbarOpen to false
     };
+  },
+  computed: {
+    isLoggedIn() {
+      return !!localStorage.getItem('token');
+    },
+    cartItemCount() {
+      return this.$store.getters.cartItemCount;
+    },
+    favoritesCount() {
+      return this.$store.state.favorites.length;
+    },
+    comparisonListCount() {
+      return this.$store.state.comparisonList.length;
+    },
+    isLightMode() {
+      return this.$store.getters.themePreference;
+    }
   },
   methods: {
     toggleNavbar() {
       this.navbarOpen = !this.navbarOpen;
     },
     toggleTheme() {
-      this.isLightMode = !this.isLightMode;
+      this.$store.dispatch('updateThemePreference', !this.isLightMode);
+    },
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'Home' });
     }
-  },
-  computed: {
-    cartItemCount() {
-      return this.currentUser ? this.$store.getters.cartItemCount(this.currentUser.sub) : 0;
-    },
-    cartTotal() {
-      return this.currentUser ? this.$store.getters.cartTotal(this.currentUser.sub) : '0.00';
-    },
-  },
+  }
 };
 </script>

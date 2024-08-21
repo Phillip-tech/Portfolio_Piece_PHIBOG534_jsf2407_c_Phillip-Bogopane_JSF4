@@ -6,6 +6,7 @@ import FavoritesView from './views/FavoritesView.vue';
 import ComparisonListView from './views/ComparisonListView.vue';
 import Login from './views/Login.vue';
 
+
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/product/:id', name: 'ProductView', component: ProductView, props: true },

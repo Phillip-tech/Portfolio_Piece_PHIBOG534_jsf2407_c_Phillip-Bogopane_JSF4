@@ -25,10 +25,7 @@
           </ul>
         </div>
         
-        <div class="theme-toggle" @click="toggleTheme">
-          <span v-if="isLightMode">☀️</span>
-          <span v-else>🌙</span>
-        </div>
+        
       </div>  
     </nav>
   </header>

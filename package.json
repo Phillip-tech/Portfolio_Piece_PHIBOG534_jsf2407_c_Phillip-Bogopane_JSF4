@@ -12,8 +12,11 @@
     "@fortawesome/fontawesome-free": "^6.6.0",
     "axios": "^1.7.3",
     "jwt-decode": "^4.0.0",
+    "swiper": "^11.1.9",
     "vue": "^3.4.31",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.4.2",
+    "vue-swiper": "^0.5.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

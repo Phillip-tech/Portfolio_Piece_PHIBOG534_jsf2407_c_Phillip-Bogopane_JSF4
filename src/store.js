@@ -6,7 +6,7 @@ export default createStore({
     products: [],
     categories: ['All categories'],
     favorites: [],
-    cart: [], // Changed to an array for simplicity
+    cart: [], 
     searchTerm: '',
     filterItem: 'All categories',
     sortOrder: 'default',
@@ -120,6 +120,8 @@ export default createStore({
           (product) => product.category === state.filterItem
         );
       }
+
+      
 
       if (state.searchTerm) {
         filteredProducts = filteredProducts.filter((product) =>

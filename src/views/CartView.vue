@@ -16,7 +16,7 @@
     <input type="number" v-model="item.quantity" @input="updateQuantity(item)" min="1" id="quantity" />
   </div>
 </div>
-        <button @click="removeFromCart(item.id)" class="text-red-500 hover:text-red-600">
+        <button @click="removeFromCart(item.id)" class="text-red-500 hover:text-red-600 bi bi-cart-x  ">
           Remove
         </button>
       </div>
@@ -25,9 +25,9 @@
         Checkout
       </button>
     </div>
-    <div v-else class=" text-white-600">
-      Your cart is empty. Go back to <router-link to="/">home</router-link> and add some products!
-    </div>
+    <div v-else class="text-white-600 underline hover:text-blue-500">
+  Your cart is empty. Go back to <router-link to="/" class="glow-link bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4">home</router-link> and add some products!
+</div>
   </div>
 </template>
 
@@ -60,3 +60,19 @@ const checkout = () => {
   store.commit('clearCart');
 };
 </script>
+<style>
+.glow-link {
+  text-decoration: underline;
+  color: blue;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f;
+  }
+  to {
+    text-shadow: 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f;
+  }
+}
+</style>

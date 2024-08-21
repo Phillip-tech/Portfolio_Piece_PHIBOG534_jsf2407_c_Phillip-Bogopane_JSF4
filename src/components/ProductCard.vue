@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded-lg p-4 shadow-md hover:shadow-lg zoom-effect">
+<div class="border rounded-lg p-4 shadow-md hover:shadow-lg zoom-effect">
     <router-link :to="{ name: 'ProductView', params: { id: product.id }}">
       <img :src="product.image" :alt="product.title" class="h-40 w-full object-contain mb-1" />
     </router-link>
@@ -23,13 +23,13 @@
     <div class="font-bold text-xl mb-4">${{ product.price }}</div>
     <button
       @click="$emit('addToCart', product)"
-      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
+      class="bg-blue-500 snake-border-glow text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full"
     >
       Add to Cart
     </button>
     <button
       @click="addToComparisonList"
-      class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full mt-2"
+      class="bg-blue-500  snake-border-glow text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full mt-2"
     >
       Add to Comparison List
     </button>
@@ -66,6 +66,7 @@ const addToComparisonList = () => {
 <style scoped>
 .star {
   font-size: 1.25rem;
+  color: #ffc107; /* Updated color for filled stars */
 }
 .filled {
   color: #ffc107;
@@ -81,4 +82,5 @@ const addToComparisonList = () => {
   height: 40px; /* Set the desired height */
   width: 100%; /* Set the desired width */
 }
+
 </style>

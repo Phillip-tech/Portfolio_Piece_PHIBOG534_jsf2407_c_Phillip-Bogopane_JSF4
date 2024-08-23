@@ -4,6 +4,15 @@
 
 SwiftCart is a responsive and user-friendly web application built using Vue 3, Vuex, and Tailwind CSS.It is designed to simulate an online shopping platform, allowing users to browse products, add items to their cart, and manage their favorites list. The application demonstrates the use of modern front-end technologies and design patterns, focusing on state management, component-based architecture, and responsive design.It provides users with a seamless shopping experience, featuring a product listing page, product detail view, shopping cart, and favorites management.
 
+## Links
+Vercel Link :https://portfolio-piece-phibog-534-jsf2407-c-phillip-bogopan-hknbb1v0p.vercel.app/
+Youtube Video Link :https://youtu.be/GS6sfP4NXJk
+
+## Login
+After Login Refresh the page for logged pages to appear and if you logout click logout you must refresh the page to logout.
+Username: mor_2314
+Password: 83r5^_
+
 ## Technologies Used
 
 - **Vue 3**: A progressive JavaScript framework for building user interfaces.
